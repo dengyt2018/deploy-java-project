@@ -1,0 +1,5 @@
+- name: ensure group exists
+  ansible.builtin.group:
+    name: "{{ group_name }}"
+    state: present
+    gid: "{{ (max_gid.stdout)|int + 1 }}"

@@ -1,0 +1,9 @@
+- hosts: "{{ hosts_name }}"
+  gather_facts: true
+  name: add group and user
+  become: yes
+  become_method: su
+  become_user: root
+  roles:
+    - role: group
+    - role: user

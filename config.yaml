@@ -1,0 +1,9 @@
+---
+hosts_name: dev     # ansible hosts name which one or group to deploy /etc/ansible/hosts
+project_port: 9080/tcp    # PORT-PORT/PROTOCOL for port ranges.
+dest_path: /home/javaproject/springboot  # deploy project to server where the path container the project file
+user_name: javaproject
+group_name: javaproject
+jrebel_enable: "true"
+jrebel_active: <file>|[<URL> <EMAIL>]|<license-code>
+jrebel_remote_password: 41bdb985-06c3-4053-a9ea-8f4d2474516a

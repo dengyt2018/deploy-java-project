@@ -1,0 +1,3 @@
+---
+- import_tasks: clean.yaml
+- import_tasks: package.yaml

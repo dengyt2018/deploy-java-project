@@ -1,0 +1,7 @@
+- name: enable firewalld port
+  ansible.posix.firewalld:
+    port: "{{ project_port }}"
+    permanent: yes
+    state: enabled
+    zone: public
+  when: status.status.ActiveState == "active"

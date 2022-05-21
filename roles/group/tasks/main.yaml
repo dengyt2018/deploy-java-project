@@ -1,0 +1,6 @@
+---
+- import_tasks: maxgid.yaml
+- import_tasks: group.yaml
+  when:
+    - group_name is defined
+    - user_name is defined

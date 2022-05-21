@@ -1,0 +1,8 @@
+---
+- name: Add the user
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    uid: "{{ (max_gid.stdout)|int + 1 }}"
+    group: "{{ group_name }}"
+    system: yes
+    shell: /sbin/nologin

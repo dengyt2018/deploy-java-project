@@ -1,0 +1,5 @@
+---
+- name: jrebel active
+  ansible.builtin.command: "/bin/bash {{ dest_path }}/jrebel/bin/activate.sh {{ jrebel_active }}"
+- name: jrebel set remote password
+  ansible.builtin.command: "java -jar {{ dest_path }}/jrebel/jrebel.jar -set-remote-password {{ jrebel_remote_password }}"

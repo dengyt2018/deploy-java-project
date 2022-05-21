@@ -1,0 +1,2 @@
+- import_tasks: firewalld_status.yaml
+- import_tasks: firewalld.yaml

@@ -1,0 +1,10 @@
+---
+- hosts: "{{ hosts_name }}"
+  become: true
+  become_user: "{{ user_name }}"
+  become_method: su
+  become_flags: '-s /bin/bash'
+  name: upload and active jrebel
+  roles:
+    - role: jrebel
+      when: jrebel_enable == "true"

@@ -1,0 +1,7 @@
+- hosts: "{{ hosts_name }}"
+  name: enable firewall port
+  become: yes
+  become_method: su
+  become_user: root
+  roles:
+    - role: firewalld

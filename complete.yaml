@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  name: before deploy
+  gather_facts: false
+  roles:
+    - role: maven
+
+- hosts: "{{ hosts_name }}"
+  name: create user and group
+  become: yes
+  become_method: su
+  become_user: root
+  roles:
+    - role: group
+    - role: user
+
+- hosts: "{{ hosts_name}}"
+  become: true
+  become_user: "{{ user_name }}"
+  become_method: su
+  become_flags: '-s /bin/bash'
+  gather_facts: false
+  name: deploy files to server
+  roles:
+    - role: make_directory
+    - role: upload
+    - role: jrebel
+
+- hosts: "{{ hosts_name }}"
+  gather_facts: false
+  name: after deploy
+  become: yes
+  become_method: su
+  become_user: root
+  roles:
+    - role: firewalld
+    - role: systemd_template
+    - role: systemctl_restart

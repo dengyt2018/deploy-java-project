@@ -1,0 +1,5 @@
+- hosts: "{{ hosts_name }}"
+  name: upload file and restart service
+  roles:
+    - role: upload
+    - role: systemctl_restart

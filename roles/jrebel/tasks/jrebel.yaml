@@ -1,0 +1,5 @@
+---
+- name: deploy jrebel
+  ansible.builtin.copy:
+    src: jrebel
+    dest: "{{ dest_path }}"

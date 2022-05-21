@@ -1,0 +1,4 @@
+- name: firewalld status
+  ansible.builtin.systemd:
+    name: firewalld
+  register: status

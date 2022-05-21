@@ -1,0 +1,22 @@
+[Unit]
+Description={{ description }}
+After=network.target network-online.target
+Wants=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+{% if systemd_user is defined %}
+{{ systemd_user }}
+{% endif %}
+{% if systemd_group is defined %}
+{{ systemd_group }}
+{% endif %}
+Type=simple
+ExecStart={% if jrebel_enable is defined and jrebel_enable == "true" %} {{ "java -agentpath:{}/jrebel/lib/libjrebel64.so -Drebel.remoting_plugin=true -jar {}/{}".format(dest_path, dest_path, jarfile) }} {% else %} {{ "java -jar {}/{}".format(dest_path, jarfile) }} {% endif %}
+
+Restart=on-failure
+ProtectSystem=strict
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

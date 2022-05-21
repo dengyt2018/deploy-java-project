@@ -1,0 +1,9 @@
+---
+- name: upload file to server
+  become: true
+  become_user: "{{ user_name }}"
+  become_method: su
+  become_flags: '-s /bin/bash'
+  ansible.builtin.copy:
+    src: "{{ project_path }}/target/{{ target_name }}"
+    dest: "{{ dest_path }}/{{ jarfile }}"
