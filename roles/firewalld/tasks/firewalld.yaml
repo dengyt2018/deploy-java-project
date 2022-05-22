@@ -4,4 +4,7 @@
     permanent: yes
     state: enabled
     zone: public
-  when: status.status.ActiveState == "active"
+- name: reload firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: reloaded
