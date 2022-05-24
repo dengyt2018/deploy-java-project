@@ -1,4 +1,7 @@
 ---
+- name: determine available users
+  ansible.builtin.getent:
+    database: passwd
 - name: Add the user
   ansible.builtin.user:
     name: "{{ user_name }}"
@@ -6,3 +9,4 @@
     group: "{{ group_name }}"
     system: yes
     shell: /sbin/nologin
+  when: user_name not in ansible_facts.getent_passwd

@@ -1,5 +1,10 @@
+---
+- name: determine available groups
+  ansible.builtin.getent:
+    database: group
 - name: ensure group exists
   ansible.builtin.group:
     name: "{{ group_name }}"
     state: present
     gid: "{{ (max_gid.stdout)|int + 1 }}"
+  when: group_name not in ansible_facts.getent_group
