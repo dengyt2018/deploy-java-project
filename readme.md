@@ -43,7 +43,8 @@ target
 │    ├── lib
 │    ├── resources
 │    └── project-0.0.1-SNAPSHOT.jar
-└── project-0.0.1-SNAPSHOT.jar
+├── project-0.0.1-SNAPSHOT.jar
+└── project.zip
 
 `config.yaml  upload_way=no_dependency`
 `python3 deploy.py upload.yaml -k` will only upload target/project/project-0.0.1-SNAPSHOT.jar

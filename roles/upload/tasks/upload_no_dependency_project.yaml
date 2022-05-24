@@ -5,7 +5,17 @@
   become_method: su
   become_flags: '-s /bin/bash'
   ansible.builtin.copy:
-    src: "{{ project_path }}/target/{{ project_name }}"
+    src: "{{ project_path }}/target/{{ project_name }}.zip"
     dest: "{{ dest_path }}/"
+- name: create path
+  ansible.builtin.file:
+    path: "{{ dest_path }}/{{ project_name }}"
+    state: directory
+    mode: '0700'
+- name: unzip file
+  ansible.builtin.unarchive:
+    src: "{{ dest_path }}/{{ project_name }}.zip"
+    dest: "{{ dest_path }}/{{ project_name }}"
+    remote_src: yes
 - name: rename project jar file
   ansible.builtin.command: mv "{{ dest_path }}"/"{{project_name}}"/"{{ target_name }}" "{{ dest_path }}"/"{{project_name}}"/"{{ jarfile }}"
