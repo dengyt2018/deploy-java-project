@@ -35,9 +35,10 @@ unzip jrebel-stable-nosetup.zip
 cd -
 ```
 
-build a no dependency maven project see example.pom.xml
+build a no dependency maven project see **example.pom.xml**
 
-`tree -L 2 target`
+```sh
+tree -L 2 target
 target
 ├── project
 │    ├── lib
@@ -45,11 +46,14 @@ target
 │    └── project-0.0.1-SNAPSHOT.jar
 ├── project-0.0.1-SNAPSHOT.jar
 └── project.zip
+```
 
-`config.yaml  upload_way=no_dependency`
-`python3 deploy.py upload.yaml -k` will only upload target/project/project-0.0.1-SNAPSHOT.jar
+config.yaml  upload_way=no_dependency
 
-`config.yaml upload_way=jarfile`
+`python3 deploy.py upload.yaml -k` will only upload target/project/project-0.0.1-SNAPSHOT.jar (full deploy will upload zip file and unzip)
+
+config.yaml upload_way=jarfile
+
 `python3 deploy.py upload.yaml -k` will upload target/project-0.0.1-SNAPSHOT.jar
 
 systemd template only work one upload way
