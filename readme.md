@@ -15,15 +15,15 @@ hosts example: /etc/ansible/hosts
 
 pip3 install --user ansible ansible-runner
 
-`python3 deploy.py -K` run a full deploy
+`python3 deploy.py -k pom=< pom.xml file path>` run a full deploy
 
 `python3 deploy.py -K [playbook name file].yaml` run step deploy
 
-`python3 deploy.py upload.yaml -K` upload maven package jar file, jar file information come from pom.xml and restart service
+`python3 deploy.py upload.yaml -K pom=< pom.xml file path>` upload maven package jar file, jar file information come from pom.xml and restart service
 
 `python3 deploy.py jrebel.yaml` upload jrebel and active jrebel
 
-`python3 deploy.py firewalld -K` enable the port where the port come from config.yaml file
+`python3 deploy.py firewalld.yaml -K` enable the port where the port come from config.yaml file
 
 `config.yaml` define some variables
 
@@ -50,10 +50,10 @@ target
 
 config.yaml  upload_way=no_dependency
 
-`python3 deploy.py upload.yaml -k` will only upload target/project/project-0.0.1-SNAPSHOT.jar (full deploy will upload zip file and unzip)
+`python3 deploy.py upload.yaml -k pom=< pom.xml file path>` will only upload target/project/project-0.0.1-SNAPSHOT.jar (full deploy will upload zip file and unzip)
 
 config.yaml upload_way=jarfile
 
-`python3 deploy.py upload.yaml -k` will upload target/project-0.0.1-SNAPSHOT.jar
+`python3 deploy.py upload.yaml -k pom=< pom.xml file path>` will upload target/project-0.0.1-SNAPSHOT.jar
 
 systemd template only work one upload way

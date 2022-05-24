@@ -6,7 +6,27 @@ import xml.etree.ElementTree
 import ansible_runner
 import sys
 
-pompath = Path("../pom.xml")
+def simple_parser_argv():
+    argvs = sys.argv[1:]
+    playbook = pompath = None
+    for idx, x in enumerate(argvs):
+        if x.endswith(".yaml"):
+            playbook = str(Path(x).resolve().absolute())
+            argvs.pop(idx)
+        if x.startswith("pom="):
+            pompath = x.split('=')
+            argvs.pop(idx)
+            pompath = Path(pompath[1]).resolve().absolute()
+    if playbook:
+        return playbook, pompath, ' '.join(argvs)
+    else:
+        return 'complete.yaml', pompath, ' '.join(argvs)
+
+
+playbook, pompath, argvs = simple_parser_argv()
+
+if not pompath:
+    pompath = Path("../pom.xml")
 
 project_path = pompath.resolve().parent
 
@@ -57,20 +77,9 @@ def load_config_yaml():
             if "group_name".__eq__(k):
                 extravars["systemd_group"] = "Group={}".format(v)
 
-def simple_parser_argv():
-    argvs = sys.argv[1:]
-    for idx, x in enumerate(argvs):
-        if x.endswith(".yaml"):
-            playbook = str(Path(x).resolve().absolute())
-            argvs.pop(idx)
-            return playbook, ' '.join(argvs)
-    
-    return 'complete.yaml', ' '.join(argvs)
-
 
 def runner(extravars):
     extravars = '{}'.format(' '.join(["{}={}".format(x, y) for x, y in extravars.items()]))
-    playbook, argvs = simple_parser_argv()
     cmdline = [playbook,
                 '-e',
                 extravars,
@@ -83,7 +92,7 @@ def runner(extravars):
         output_fd=sys.stdout,
         error_fd=sys.stderr
         )
-    
+
 if __name__ == "__main__":
     load_config_yaml()
     runner(extravars)
