@@ -1,0 +1,11 @@
+---
+- name: upload no dependency project to server
+  become: true
+  become_user: "{{ user_name }}"
+  become_method: su
+  become_flags: '-s /bin/bash'
+  ansible.builtin.copy:
+    src: "{{ project_path }}/target/{{ project_name }}"
+    dest: "{{ dest_path }}/"
+- name: rename project jar file
+  ansible.builtin.command: mv "{{ dest_path }}"/"{{project_name}}"/"{{ target_name }}" "{{ dest_path }}"/"{{project_name}}"/"{{ jarfile }}"

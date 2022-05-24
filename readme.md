@@ -21,7 +21,7 @@ pip3 install --user ansible ansible-runner
 
 `python3 deploy.py upload.yaml -K` upload maven package jar file, jar file information come from pom.xml and restart service
 
-`python3 deploy.py jrebel.yaml` upload JRebel and active JRebel
+`python3 deploy.py jrebel.yaml` upload jrebel and active jrebel
 
 `python3 deploy.py firewalld -K` enable the port where the port come from config.yaml file
 
@@ -34,3 +34,21 @@ cd roles/jrebel/tasks/files && curl -O https://dl.zeroturnaround.com/jrebel-stab
 unzip jrebel-stable-nosetup.zip
 cd -
 ```
+
+build a no dependency maven project see example.pom.xml
+
+`tree -L 2 target`
+target
+├── project
+│    ├── lib
+│    ├── resources
+│    └── project-0.0.1-SNAPSHOT.jar
+└── project-0.0.1-SNAPSHOT.jar
+
+`config.yaml  upload_way=no_dependency`
+`python3 deploy.py upload.yaml -k` will only upload target/project/project-0.0.1-SNAPSHOT.jar
+
+`config.yaml upload_way=jarfile`
+`python3 deploy.py upload.yaml -k` will upload target/project-0.0.1-SNAPSHOT.jar
+
+systemd template only work one upload way

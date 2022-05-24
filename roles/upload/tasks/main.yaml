@@ -1,2 +1,5 @@
 ---
 - import_tasks: upload.yaml
+  when: upload_way == "jarfile"
+- import_tasks: upload_no_dependency_project.yaml
+  when: upload_way == "no_dependency"

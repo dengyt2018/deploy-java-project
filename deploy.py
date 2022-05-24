@@ -75,7 +75,7 @@ def runner(extravars):
                 '-e',
                 extravars,
                 argvs]
-    
+
     ansible_runner.run_command(
         executable_cmd="ansible-playbook",
         cmdline_args=cmdline,

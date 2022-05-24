@@ -1,0 +1,87 @@
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+
+                <!-- <excludes> -->
+                <!-- <exclude>*.**</exclude> -->
+                <!-- <exclude>*/**.xml</exclude> -->
+                <!-- </excludes> -->
+
+                <!-- include class files -->
+                <includes>
+                    <include>
+                        **/com/**
+                    </include>
+                    <include>
+                        **/net/**
+                    </include>
+                    <include>
+                        **/org/**
+                    </include>
+                </includes>
+
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+                        <useUniqueVersions>false</useUniqueVersions>
+                        <!-- Spring Boot class -->
+                        <mainClass>Spring Boot Class</mainClass>
+                    </manifest>
+                    <manifestEntries>
+                        <!-- manifest.mf  Class-Path -->
+                        <Class-Path>resources/</Class-Path>
+                    </manifestEntries>
+                </archive>
+                <!-- jar file output -->
+                <outputDirectory>${project.build.directory}/${project.name}/</outputDirectory>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/${project.name}/lib</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+
+            <executions>
+                <execution>
+                    <id>copy-resources</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <resources>
+                            <resource>
+                                <directory>src/main/resources</directory>
+                            </resource>
+                        </resources>
+
+                        <outputDirectory>${project.build.directory}/${project.name}/resources</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>

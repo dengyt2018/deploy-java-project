@@ -12,7 +12,16 @@ Requires=network-online.target
 {{ systemd_group }}
 {% endif %}
 Type=simple
-ExecStart={% if jrebel_enable is defined and jrebel_enable == "true" %} {{ "java -agentpath:{}/jrebel/lib/libjrebel64.so -Drebel.remoting_plugin=true -jar {}/{}".format(dest_path, dest_path, jarfile) }} {% else %} {{ "java -jar {}/{}".format(dest_path, jarfile) }} {% endif %}
+{% if upload_way == "no_dependency" %}
+{% set project_dir = project_name %}
+{% else %}
+{% set project_dir = "/" %}
+{% endif %}
+{% if jrebel_enable is defined and jrebel_enable == "true" %}
+{{ "ExecStart=java -DLOG_DIR={}/logs -agentpath:{}/jrebel/lib/libjrebel64.so -Drebel.remoting_plugin=true -jar {}/{}/{}".format(dest_path, dest_path, dest_path, project_dir, jarfile) }}
+ {% else %}
+{{ "ExecStart=java -DLOG_DIR={}/logs -jar {}/{}/{}".format(dest_path, dest_path, project_dir, jarfile) }}
+{% endif %}
 
 Restart=on-failure
 ProtectSystem=strict

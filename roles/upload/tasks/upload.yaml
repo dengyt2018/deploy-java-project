@@ -1,5 +1,5 @@
 ---
-- name: upload file to server
+- name: upload jarfile to server
   become: true
   become_user: "{{ user_name }}"
   become_method: su

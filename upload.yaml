@@ -1,5 +1,8 @@
 - hosts: "{{ hosts_name }}"
-  name: upload file and restart service
+  name: upload java project and restart service
   roles:
+    - role: upload_no_dependency
+      when: upload_way == "no_dependency"
     - role: upload
+      when: upload_way == "jarfile"
     - role: systemctl_restart

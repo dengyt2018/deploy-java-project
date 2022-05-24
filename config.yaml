@@ -7,3 +7,4 @@ group_name: javaproject
 jrebel_enable: "true"
 jrebel_active: <file>|[<URL> <EMAIL>]|<license-code>
 jrebel_remote_password: 41bdb985-06c3-4053-a9ea-8f4d2474516a
+upload_way: jarfile # no_dependency upload a no dependency project, jarfile upload an all dependency in jarfile

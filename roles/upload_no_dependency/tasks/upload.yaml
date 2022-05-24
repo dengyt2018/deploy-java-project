@@ -1,0 +1,9 @@
+---
+- name: only upload no dependency jarfile to server
+  become: true
+  become_user: "{{ user_name }}"
+  become_method: su
+  become_flags: '-s /bin/bash'
+  ansible.builtin.copy:
+    src: "{{ project_path }}/target/{{ project_name }}/{{ target_name }}"
+    dest: "{{ dest_path }}/{{ project_name }}/{{ jarfile }}"
